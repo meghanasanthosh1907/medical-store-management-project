@@ -1,0 +1,27 @@
+<h2>Your Medicines</h2>
+<form method="get">
+  <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+  <button type="submit">Search</button>
+</form>
+<ul>
+  {% for m in medicines %}
+    <li>
+      {{ m.name }} ({{ m.stock }}) - {{ m.added_at }}<br>
+      <a href="{% url 'edit_medicine' m.id %}">Edit</a><br>
+      <a href="{% url 'delete_medicine' m.id %}">Delete</a><br>
+    </li>
+  {% empty %}
+    <li>No medicines</li>
+  {% endfor %}
+</ul>
+<div>
+  {% if medicines.has_previous %}
+    <a href="?page={{ medicines.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+  {% endif %}
+  Page {{ medicines.number }} of {{ medicines.paginator.num_pages }}
+  {% if medicines.has_next %}
+    <a href="?page={{ medicines.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
+  {% endif %}
+</div>
+<a href="{% url 'add_medicine' %}">Add Medicine</a><br>
+<a href="{% url 'logout' %}">Logout</a>

@@ -50,7 +50,7 @@ def medicine_list(request):
     medicines = Medicine.objects.filter(user=request.user)
     if search_query:
         medicines = medicines.filter(name__icontains=search_query)
-    paginator = Paginator(medicines.order_by('-added_at'), 5)
+    paginator = Paginator(medicines.order_by('-added_at'), 2)
     page = request.GET.get('page')
     medicines = paginator.get_page(page)
     return render(request, 'store/medicine_list.html', {

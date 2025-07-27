@@ -1,27 +1,55 @@
-<h2>Your Medicines</h2>
-<form method="get">
-  <input type="text" name="q" placeholder="Search..." value="{{ query }}">
-  <button type="submit">Search</button>
-</form>
-<ul>
-  {% for m in medicines %}
-    <li>
-      {{ m.name }} ({{ m.stock }}) - {{ m.added_at }}<br>
-      <a href="{% url 'edit_medicine' m.id %}">Edit</a><br>
-      <a href="{% url 'delete_medicine' m.id %}">Delete</a><br>
-    </li>
-  {% empty %}
-    <li>No medicines</li>
-  {% endfor %}
-</ul>
-<div>
-  {% if medicines.has_previous %}
-    <a href="?page={{ medicines.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
-  {% endif %}
-  Page {{ medicines.number }} of {{ medicines.paginator.num_pages }}
-  {% if medicines.has_next %}
-    <a href="?page={{ medicines.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
-  {% endif %}
-</div>
-<a href="{% url 'add_medicine' %}">Add Medicine</a><br>
-<a href="{% url 'logout' %}">Logout</a>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Medicines</title>
+  <link rel="stylesheet" href="{% static 'medstore/style.css' %}">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Your Medicines</h2>
+
+    <!-- Search Form -->
+    <form method="get">
+      <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Medicine List -->
+    <ul>
+      {% for m in medicines %}
+        <li>
+          <strong>{{ m.name }}</strong> ({{ m.stock }}) <br>
+          <small>Added: {{ m.added_at }}</small><br>
+          <a href="{% url 'edit_medicine' m.id %}">Edit</a> |
+          <a href="{% url 'delete_medicine' m.id %}">Delete</a>
+        </li>
+      {% empty %}
+        <li>No medicines</li>
+      {% endfor %}
+    </ul>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      {% if medicines.has_previous %}
+        <a href="?page={{ medicines.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Previous</a>
+      {% endif %}
+
+      Page {{ medicines.number }} of {{ medicines.paginator.num_pages }}
+
+      {% if medicines.has_next %}
+        <a href="?page={{ medicines.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Next</a>
+      {% endif %}
+    </div>
+
+    <!-- Actions -->
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="{% url 'add_medicine' %}">➕ Add Medicine</a><br>
+      <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
+  </div>
+
+</body>
+</html>
+

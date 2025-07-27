@@ -1,6 +1,26 @@
-<h2>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Medicine</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
-<a href="{% url 'medicine_list' %}">Back</a>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Medicine</title>
+  <link rel="stylesheet" href="{% static 'medstore/style.css' %}">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Edit Medicine</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="{% url 'medicine_list' %}">⬅ Back</a>
+    </div>
+  </div>
+
+</body>
+</html>
+

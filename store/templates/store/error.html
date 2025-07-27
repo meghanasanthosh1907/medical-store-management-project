@@ -1,3 +1,20 @@
-<h2>Error</h2>
-<p>{{ message }}</p>
-<a href="{% url 'medicine_list' %}">Go Back</a>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Error</title>
+  <link rel="stylesheet" href="{% static 'medstore/style.css' %}">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Error</h2>
+    <p class="error">{{ message }}</p>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="{% url 'medicine_list' %}">⬅ Go Back</a>
+    </div>
+  </div>
+
+</body>
+</html>
+

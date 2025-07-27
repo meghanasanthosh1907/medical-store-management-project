@@ -1,6 +1,29 @@
-<h2>Signup</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Signup</button>
-</form>
-<a href="{% url 'login' %}">Login</a>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <link rel="stylesheet" href="{% static 'medstore/style.css' %}">
+</head>
+<body>
+  <h2>Signup</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <label for="id_username">Username:</label>
+    {{ form.username }}
+    
+    <label for="id_password1">Password:</label>
+    {{ form.password1 }}
+
+    <label for="id_password2">Confirm Password:</label>
+    {{ form.password2 }}
+
+    <button type="submit">Signup</button>
+  </form>
+
+  <a href="{% url 'login' %}">Login</a>
+</body>
+</html>
+
